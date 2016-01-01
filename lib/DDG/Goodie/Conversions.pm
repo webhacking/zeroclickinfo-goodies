@@ -6,9 +6,9 @@ use DDG::Goodie;
 with 'DDG::GoodieRole::NumberStyler';
 
 use Math::Round qw/nearest/;
-use bignum;
+#use bignum;
 use utf8;
-use YAML::XS 'LoadFile';
+use YAML::XS qw(LoadFile DumpFile);
 
 name                      'Conversions';
 description               'convert between various units of measurement';
@@ -25,6 +25,7 @@ zci answer_type => 'conversions';
 zci is_cached   => 1;
 
 my @types = LoadFile(share('ratios.yml'));
+my @prefixes = LoadFile(share('prefixes.yml'));
 
 my @units = ();
 foreach my $type (@types) {

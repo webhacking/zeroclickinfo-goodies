@@ -1,0 +1,112 @@
+--- tebi
+---
+factor: 1099511627776
+symbol: Ti
+--- yobi
+---
+factor: 1.20892581961463e+24
+symbol: Yi
+--- zepto
+---
+factor: 1e-21
+symbol: z
+--- peta
+---
+factor: 1000000000000000
+symbol: P
+--- tera
+---
+factor: 1000000000000
+symbol: T
+--- pico
+---
+factor: 1e-12
+symbol: p
+--- mega
+---
+factor: 1000000
+symbol: M
+--- kilo
+---
+factor: 1000
+symbol: k
+--- hecto
+---
+factor: 100
+symbol: h
+--- centi
+---
+factor: 0.01
+symbol: c
+--- giga
+---
+factor: 1000000000
+symbol: G
+--- pebi
+---
+factor: 1.12589990684262e+15
+symbol: Pi
+--- zebi
+---
+factor: 1.18059162071741e+21
+symbol: Zi
+--- exbi
+---
+factor: 1.15292150460685e+18
+symbol: Ei
+--- deca
+---
+factor: 10
+symbol: da
+--- femto
+---
+factor: 1e-15
+symbol: f
+--- yotta
+---
+factor: 1e+24
+symbol: Y
+--- mebi
+---
+factor: 1048576
+symbol: Mi
+--- gibi
+---
+factor: 1073741824
+symbol: Gi
+--- micro
+---
+factor: 1e-06
+symbol: μ
+--- nano
+---
+factor: 1e-09
+symbol: n
+--- yocto
+---
+factor: 1e-24
+symbol: y
+--- exa
+---
+factor: 1e+18
+symbol: E
+--- zetta
+---
+factor: 1e+21
+symbol: Z
+--- kibi
+---
+factor: 1024
+symbol: Ki
+--- milli
+---
+factor: 0.001
+symbol: m
+--- deci
+---
+factor: 0.1
+symbol: d
+--- atto
+---
+factor: 1e-18
+symbol: a
