@@ -27,8 +27,6 @@ zci is_cached   => 1;
 my @base_types = LoadFile(share('ratios.yml'));
 my %prefixes = LoadFile(share('prefixes.yml'));
 
-my @units;
-
 my @types = @base_types;
 foreach my $prefix(keys %prefixes) {
     my @scaled_types;
@@ -42,15 +40,26 @@ foreach my $prefix(keys %prefixes) {
            can_be_negative => $type->{'can_be_negative'},
            aliases => \@aliases,
         });
+        
+        @aliases = map { $prefixes{$prefix}->{'symbol'}. $_ } @{$type->{'aliases'}};
+        push(@scaled_types, {
+            unit => $prefixes{$prefix}->{'symbol'} . $type->{'unit'},
+            type => $type->{'type'},
+            factor => $type->{'factor'} * $prefixes{$prefix}->{'factor'},
+            can_be_negative => $type->{'can_be_negative'},
+            aliases => \@aliases
+        });
     }
     push(@types, @scaled_types);
 }
 
+my @units;
 foreach my $type (@types)
 {
     push @units, $type->{'unit'};
     push @units, @{$type->{'aliases'}};
 }
+
 my @triggers = map { lc $_ } @units;
 
 #warn dump(@triggers);
