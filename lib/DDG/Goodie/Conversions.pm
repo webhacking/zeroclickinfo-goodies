@@ -9,7 +9,7 @@ use Math::Round qw/nearest/;
 #use bignum;
 use utf8;
 use YAML::XS qw(LoadFile DumpFile);
-
+use Data::Dump qw(dump);
 name                      'Conversions';
 description               'convert between various units of measurement';
 category                  'calculations';
@@ -24,34 +24,36 @@ attribution                github  => 'https://github.com/elohmrow',
 zci answer_type => 'conversions';
 zci is_cached   => 1;
 
-my @types = LoadFile(share('ratios.yml'));
+my @base_types = LoadFile(share('ratios.yml'));
 my %prefixes = LoadFile(share('prefixes.yml'));
 
-my @units = ();
-my @triggers;
-foreach my $type (@types) {
-    push(@units, $type->{'unit'});
-    push(@units, @{$type->{'aliases'}});
-    
-    push(@triggers, $type->{'unit'});
-    push(@triggers, @{$type->{'aliases'}});
-    
-    foreach my $prefix(keys %prefixes) {
-        push(@units, $prefix.$type->{'unit'});
-        push(@units, $prefixes{$prefix}->{'symbol'});
+my @units;
 
-        push(@triggers, lc $prefix.$type->{'unit'});
-        push(@triggers, lc $prefixes{$prefix}->{'symbol'});
-        
-        foreach (@{$type->{'aliases'}}) {
-            push(@units, $prefix.$_);
-            push(@units, $prefixes{$prefix}->{'symbol'});
-            push(@triggers, lc $prefix.$_);
-            push(@triggers, lc $prefixes{$prefix}->{'symbol'});
-        }
+my @types = @base_types;
+foreach my $prefix(keys %prefixes) {
+    my @scaled_types;
+    
+    foreach my $type (@base_types){
+        my @aliases = map {$prefix.$_} @{$type->{'aliases'}};
+        push(@scaled_types, {
+           unit => $prefix.$type->{'unit'},
+           type => $type->{'type'},
+           factor => $type->{'factor'} * $prefixes{$prefix}->{'factor'},
+           can_be_negative => $type->{'can_be_negative'},
+           aliases => \@aliases,
+        });
     }
+    push(@types, @scaled_types);
 }
 
+foreach my $type (@types)
+{
+    push @units, $type->{'unit'};
+    push @units, @{$type->{'aliases'}};
+}
+my @triggers = map { lc $_ } @units;
+
+#warn dump(@triggers);
 triggers any => @triggers;
 
 # match longest possible key (some keys are sub-keys of other keys):
