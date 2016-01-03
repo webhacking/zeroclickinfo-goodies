@@ -25,16 +25,32 @@ zci answer_type => 'conversions';
 zci is_cached   => 1;
 
 my @types = LoadFile(share('ratios.yml'));
-my @prefixes = LoadFile(share('prefixes.yml'));
+my %prefixes = LoadFile(share('prefixes.yml'));
 
 my @units = ();
+my @triggers;
 foreach my $type (@types) {
     push(@units, $type->{'unit'});
     push(@units, @{$type->{'aliases'}});
-}
+    
+    push(@triggers, $type->{'unit'});
+    push(@triggers, @{$type->{'aliases'}});
+    
+    foreach my $prefix(keys %prefixes) {
+        push(@units, $prefix.$type->{'unit'});
+        push(@units, $prefixes{$prefix}->{'symbol'});
 
-# build triggers based on available conversion units:
-my @triggers = map { lc $_ } @units;
+        push(@triggers, lc $prefix.$type->{'unit'});
+        push(@triggers, lc $prefixes{$prefix}->{'symbol'});
+        
+        foreach (@{$type->{'aliases'}}) {
+            push(@units, $prefix.$_);
+            push(@units, $prefixes{$prefix}->{'symbol'});
+            push(@triggers, lc $prefix.$_);
+            push(@triggers, lc $prefixes{$prefix}->{'symbol'});
+        }
+    }
+}
 
 triggers any => @triggers;
 

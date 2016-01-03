@@ -60,18 +60,6 @@ type: mass
 unit: microgram
 ---
 aliases:
-  - kg
-  - kilo
-  - kilogramme
-  - kilograms
-  - kgs
-  - kilos
-  - kilogrammes
-factor: 1000
-type: mass
-unit: kilogram
----
-aliases:
   - g
   - gm
   - gramme
