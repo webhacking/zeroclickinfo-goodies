@@ -38,7 +38,7 @@ my $factor_re = join('|', ('a', 'an', number_style_regex()));
 my $guard = qr/^(?<question>$question_prefix)\s?(?<left_num>$factor_re*)\s?(?<left_unit>$keys)\s(?<connecting_word>in|to|into|(?:in to)|from)?\s?(?<right_num>$factor_re*)\s?(?:of\s)?(?<right_unit>$keys)[\?]?$/i;
 
 my $matcher = wi_custom(
-    groups => ['conversion', 'to', 'from'],
+    groups => ['conversion', 'to', 'from', 'in'],
     options => {
         primary => qr/$factor_re*/,
         unit => qr/(?<unit>$keys)/,
