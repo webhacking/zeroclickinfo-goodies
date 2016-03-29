@@ -5,9 +5,19 @@ use warnings;
 use Test::More;
 use DDG::Test::Goodie;
 use Test::MockTime qw( :all );
+use DDG::Test::Location;
 
 zci answer_type => 'calendar';
 zci is_cached   => 0;
+
+sub location_test {
+    my ($location_code, $query, @res_params) = @_;
+    my $location = test_location($location_code);
+    return DDG::Request->new(
+        query_raw => $query,
+        location => $location
+    ) => test_zci(@res_params);
+}
 
 ddg_goodie_test(
     [qw(
@@ -246,7 +256,7 @@ S M T W T F S      November 2015
             }
         }
     ),
-    'calendar 29.11.2015' => test_zci("
+    location_test('de', 'calendar 29.11.2015', "
 S M T W T F S      November 2015
   1   2   3   4   5   6   7 
   8   9  10  11  12  13  14 
