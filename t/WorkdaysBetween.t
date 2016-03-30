@@ -205,6 +205,7 @@ ddg_goodie_test(
     'Workdays between 19/19/2014 20/24/2015'           => undef,
     'Workdays between 19/19/2014 20/24/2015 inclusive' => undef,
     'Workdays from FEB 30 2014 to March 24 2014'       => undef,
+    'Workdays between jan 3 2013 and jan 4 2013 and jan 5 2013' => undef,
 );
 
 set_fixed_time("2015-01-11T09:45:56");

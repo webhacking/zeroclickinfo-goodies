@@ -33,6 +33,7 @@ ddg_goodie_test(
     'week days between 01/06/2014 01/10/2014' => test_zci(@six_to_ten),
     'week days from 01/06/2014 01/10/2014'    => test_zci(@six_to_ten),
     'Weekdays from 01/06/2014 01/10/2014'     => test_zci(@six_to_ten),
+    'Weekdays from 01/06/2014 01/10/2014 07/03/2014' => undef,
 
     # Standard work week
     'Weekdays between 01/06/2014 01/10/2014' => test_zci(@six_to_ten),
