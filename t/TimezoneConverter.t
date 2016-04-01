@@ -20,10 +20,10 @@ ddg_goodie_test(
             result => '3:14 GMT',
         },
     ),
-    '8:10 AM AZOST into CAT' =>
+    '8:10 AM AZOT into CAT' =>
         test_zci('11:10 AM CAT',
         structured_answer => {
-            input => ['8:10 AM AZOST (UTC-1) to CAT (UTC+2)'],
+            input => ['8:10 AM AZOT (UTC-1) to CAT (UTC+2)'],
             operation => 'Convert Timezone',
             result => '11:10 AM CAT',
         },
