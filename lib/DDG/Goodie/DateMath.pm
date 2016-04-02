@@ -54,8 +54,6 @@ my $relative_regex = qr/(?<number>$number_re|[a-z\s-]+)\s+$units/i;
 my $action_re = qr/(?<action>plus|add|\+|\-|minus|subtract)/i;
 
 my $operation_re = qr/$action_re\s$relative_regex/i;
-my $time_24h = time_24h_regex();
-my $time_12h = time_12h_regex();
 
 sub build_result {
     my ($result, $formatted) = @_;
@@ -110,9 +108,7 @@ handle query_lc => sub {
     my $query = $_;
 
     $query =~ s/([a-z]+) ($units)/@{[str2nbr($1)]} $2/g;
-    my $specified_time = $query =~ /$time_24h|$time_12h/;
-    my $has_time_words = $query =~ /time|$clock_unit/i;
-    my $use_clock = $specified_time || $has_time_words;
+    my $use_clock = $query =~ /time|$clock_unit|:/i;
     $query =~ s/[?.]$//;
     $query =~ s/^(what ((is|was|will) the )?)?(?<dort>date|time|day)( (was it|will it be|is it|be))?\s+//i;
     $query =~ s/\s*$operation_re\s*//;;
