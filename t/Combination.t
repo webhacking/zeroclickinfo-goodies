@@ -24,11 +24,11 @@ ddg_goodie_test(
             result    => '120',
         }
     ),
-    '25 permute 16' => test_zci('4.27447366714368 * 10^19',
+    '25 permute 16' => test_zci('4.27447366714368 * 10 ^ 19',
         structured_answer =>  {
             input     => ['25 permute 16'],
             operation => 'Calculate',
-            result    => '4.27447366714368 * 10^19'
+            result    => '4.27447366714368 * 10 ^ 19'
         }
     ), 
     '16 permutation 3' => test_zci('3,360',
