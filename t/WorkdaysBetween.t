@@ -4,11 +4,21 @@ use strict;
 use warnings;
 use Test::More;
 use DDG::Test::Goodie;
+use DDG::Test::Language;
 
 use Test::MockTime qw( :all );
 
 zci answer_type => 'workdays_between';
 zci is_cached   => 0;
+
+sub language_test {
+    my ($code, $query, @args) = @_;
+    my $lang = test_language($code);
+    return DDG::Request->new(
+        query_raw => $query,
+        language  => $lang,
+    ) => test_zci(@args);
+}
 
 my @six_to_ten = (
     'There are 5 Workdays between 06 Jan 2014 and 10 Jan 2014.',
@@ -133,32 +143,6 @@ ddg_goodie_test(
     # Business Days
     'business days between 01/06/2014 01/10/2014'           => test_zci(@six_to_ten),
     'business days between 01/06/2014 01/10/2014 inclusive' => test_zci(@six_to_ten),
-
-    # Month and Date are backwards
-    'Workdays between 16/06/2014 20/06/2014' => test_zci(@latejun),
-    'Workdays between 5/06/2014 20/06/2014'  => test_zci(@midjune),
-    'Workdays between 20/06/2014 5/06/2014'  => test_zci(@midjune),
-
-    # Single digit days and months
-    'Workdays between 1/6/2014 1/10/2014'           => test_zci(@six_to_ten),
-    'Workdays between 1/6/2014 1/10/2014 inclusive' => test_zci(@six_to_ten),
-
-    # Workdays in a year - Dash format
-    'Workdays between 01-01-2014 01-01-2015'           => test_zci(@twentyfourteen),
-    'Workdays between 01-01-2014 01-01-2015 inclusive' => test_zci(@twentyfourteen),
-
-    # Business Days - Dash format
-    'business days between 01-06-2014 01-10-2014'           => test_zci(@six_to_ten),
-    'business days between 01-06-2014 01-10-2014 inclusive' => test_zci(@six_to_ten),
-
-    # Month and Date are backwards - Dash format
-    'Workdays between 16-06-2014 20-06-2014' => test_zci(@latejun),
-    'Workdays between 5-06-2014 20-06-2014'  => test_zci(@midjune),
-    'Workdays between 20-06-2014 5-06-2014'  => test_zci(@midjune),
-
-    # Single digit days and months - Dash format
-    'Workdays between 1-6-2014 1-10-2014'           => test_zci(@six_to_ten),
-    'Workdays between 1-6-2014 1-10-2014 inclusive' => test_zci(@six_to_ten),
 
     # Unambiguous date format
     'Workdays between jan 6 2014 jan 10 2014'           => test_zci(@six_to_ten),

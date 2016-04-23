@@ -51,19 +51,6 @@ ddg_goodie_test(
         }
     ),
 
-    # Weekdays in a year - Dash format
-    'Weekdays between 01-01-2014 01-01-2015' => test_zci(
-        "There are 262 Weekdays between 01 Jan 2014 and 01 Jan 2015.",
-        structured_answer => {
-            input     => ['01 Jan 2014', '01 Jan 2015'],
-            operation => 'Weekdays between',
-            result    => 262,
-        }
-    ),
-
-    # Single digit days and months - Dash format
-    'Weekdays between 1-6-2014 1-10-2014' => test_zci(@six_to_ten),
-
     # Unambiguous date format
     'Weekdays between jan 6 2014 jan 10 2014' => test_zci(@six_to_ten),
 
